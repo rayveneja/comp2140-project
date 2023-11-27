@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
+</head>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div id="menu">
+                    <div class="hamburger">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="menu-inner">
+                        <ul>
+                            <li>View All Orders</li>
+                            <li>Update Order</li>
+                            <li>Add Order</li>
+                            <li>Delete Order</li>
+                            <li>Cancelled Orders</li>
+                            <li>Reports</li>
+                        </ul>
+                    </div>
+                    <span><i class="bx bx-search search-toggle"></i></span>
+                    <div class="search-block">
+                        <form class="search-form">
+                            <span><i class="bx bx-arrow-back search-cancel"></i></span>
+                            <input type="search" name="search" class="search-input" placeholder="Search here...">
+                        </form>
+                    </div>
+                    <div class="menu-toggle"></div>
+                    <div class="profile">
+                        <div class="user">
+                            <h3>Username</h3>
+                            <p>User-Title</p>
+                        </div>
+                        <div class="img-box">
+                            <img src="user.png" alt="User-Icon">
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <ul>
+                            <li><a href="#"><i class="ph-bold ph-sign-out"></i>&nbsp;Sign Out</a></li>
+                        </ul>
+                    </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="tab-functions">
+            <div class="functions">
+                <a href="new-order.html" id="new-order">
+                    <button>New Orders</button>
+                </a>
+                <a href="processing.html" id="processing">
+                    <button>Order Processing</button>
+                </a>
+                <a href="completed.html" id="completed">
+                    <button>completed Orders</button>
+                </a>
+            </div>
+
+        </section>
+    </main>
+</body>
+
+</html>
