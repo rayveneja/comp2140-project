@@ -72,7 +72,8 @@ SELECT
   o.orderDetails AS OrderDetails,
   o.orderTotal AS OrderTotal,
   o.pickupTime AS OrderPickupTime,
-  o.statusO AS OrderStatus
+  o.statusO AS OrderStatus,
+  o.acceptedTime AS OrderAcceptedTime
 FROM
   Orders o
   JOIN Customers c ON o.customerID = c.customerID
@@ -87,7 +88,8 @@ SELECT
   o.orderDetails AS OrderDetails,
   o.orderTotal AS OrderTotal,
   o.pickupTime AS OrderPickupTime,
-  o.statusO AS OrderStatus
+  o.statusO AS OrderStatus,
+  o.cancelTime as OrderCancelTime
 FROM
   Orders o
   JOIN Customers c ON o.customerID = c.customerID
@@ -102,7 +104,8 @@ SELECT
   o.orderDetails AS OrderDetails,
   o.orderTotal AS OrderTotal,
   o.pickupTime AS OrderPickupTime,
-  o.statusO AS OrderStatus
+  o.statusO AS OrderStatus,
+  o.escalatedTime AS OrderEscalatedTime
 FROM
   Orders o
   JOIN Customers c ON o.customerID = c.customerID
