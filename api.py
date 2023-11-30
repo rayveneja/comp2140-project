@@ -1,9 +1,10 @@
 import datetime
 from flask import Flask, jsonify, request, make_response
 import mysql.connector
+from flask_cors import CORS
 
 Mystery = Flask(__name__)
-
+CORS(Mystery)
 
 # get customers
 
@@ -36,26 +37,23 @@ def get_Customers():
 
 
   # get orders for display view
-
 @Mystery.route('/ordersView', methods=['GET'])
 def get_orderView():
     try:
         # connect to database
-        con = mysql.connector.connect(user='root',
-                                       host='localhost',
-                                       database='mysteryRest'
-                                       )
+        con = mysql.connector.connect(user='root', host='localhost', database='mysteryRest')
         cursor = con.cursor()
         cursor.execute(f"SELECT * FROM OrderView")
         orderView_list = []
         for OrderNumber, CustomerFullName, OrderDetails, OrderTotal, OrderPickupTime, OrderStatus in cursor:
-            order = {}
-            order['OrderNumber'] = OrderNumber
-            order['CustomerFullName'] = CustomerFullName
-            order['OrderDetails'] = OrderDetails
-            order['OrderTotal'] = OrderTotal
-            order['OrderPickupTime'] = OrderPickupTime
-            order['OrderStatus'] = OrderStatus
+            order = {
+                'OrderNumber': OrderNumber,
+                'CustomerFullName': CustomerFullName,
+                'OrderDetails': OrderDetails,
+                'OrderTotal': OrderTotal,
+                'OrderPickupTime': OrderPickupTime,
+                'OrderStatus': OrderStatus
+            }
             orderView_list.append(order)
         cursor.close()
         con.close()
@@ -63,7 +61,35 @@ def get_orderView():
 
     except Exception as e:
         print(e)
-        return make_response(jsonify({'error': 'An error occurred while retreiving this view'}), 500)
+        return make_response(jsonify({'error': 'An error occurred while retrieving this view'}), 500)
+    
+@Mystery.route('/ordersView/<int:orderID>', methods=['GET'])
+def get_orderViewbyID(orderID):
+    try:
+        # connect to database
+        con = mysql.connector.connect(user='root', host='localhost', database='mysteryRest')
+        cursor = con.cursor()
+        cursor.execute(f"SELECT * FROM OrderView WHERE orderView.OrderNumber={orderID}")
+        orderView_list = []
+        for OrderNumber, CustomerFullName, OrderDetails, OrderTotal, OrderPickupTime, OrderStatus in cursor:
+            order = {
+                'OrderNumber': OrderNumber,
+                'CustomerFullName': CustomerFullName,
+                'OrderDetails': OrderDetails,
+                'OrderTotal': OrderTotal,
+                'OrderPickupTime': OrderPickupTime,
+                'OrderStatus': OrderStatus
+            }
+            orderView_list.append(order)
+        cursor.close()
+        con.close()
+        return make_response(jsonify(orderView_list), 200)
+
+    except Exception as e:
+        print(e)
+        return make_response(jsonify({'error': 'An error occurred while retrieving this view'}), 500)
+
+
     
     
 @Mystery.route('/NewOrdersView', methods=['GET'])
