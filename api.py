@@ -254,7 +254,7 @@ def updateOStat(oID):
     
 
 
-@Mystery.route('/cancellO/orderID', methods=['POST'])
+@Mystery.route('/cancellO/<int:orderID>', methods=['POST'])
 def cancellO(oID):
     try:
         con = mysql.connector.connect(user='', password ='',
@@ -278,7 +278,7 @@ def cancellO(oID):
         return make_response({'error': str(e)}, 400)
     
 
-@Mystery.route('/acceptO/orderID', methods=['POST'])
+@Mystery.route('/acceptO/<int:orderID>', methods=['POST'])
 def acceptO(oID):
     try:
         con = mysql.connector.connect(user='', password ='',
@@ -302,7 +302,7 @@ def acceptO(oID):
         return make_response({'error': str(e)}, 400)
     
 
-@Mystery.route('/escalateO/orderID', methods=['POST'])
+@Mystery.route('/escalateO/<int:orderID>', methods=['POST'])
 def escalateO(oID):
     try:
         con = mysql.connector.connect(user='', password ='',
@@ -327,7 +327,7 @@ def escalateO(oID):
     
 
 
-@Mystery.route('/completeO/orderID', methods=['POST'])
+@Mystery.route('/completeO/<int:orderID>', methods=['POST'])
 def completeO(oID):
     try:
         con = mysql.connector.connect(user='', password ='',
