@@ -29,19 +29,39 @@
     </nav>
 
     <section id="orderList">
-        <div id="orderDetailsModal" class="modal">
-        </div>
-        <div id="uniqueOrderDetailsModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeOrderDetailsModal()">&times;</span>
-                <h2>Order Details</h2>
-                <p id="orderDetails"></p>
+        <table id="orderTable">
+            <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Customer</th>
+                    <th>Details</th>
+                    <th>Total</th>
+                    <th>Pickup Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="orderDetails">
+                <!-- Order details will be appended here dynamically -->
+            </tbody>
+        </table>
+    </section>
+    <div id="orderDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOrderDetailsModal()">&times;</span>
+            <h2>Order Details</h2>
+            <table id="orderDetailsTable">
+                <tr class="order" onclick="fetchOrderDetailsById(order.OrderNumber)">
+                </tr>
+            </table>
+            
+            <div id="actionButtons">
                 <button onclick="acceptOrder()">Accept</button>
                 <button onclick="cancelOrder()">Cancel</button>
+                <button onclick="completeOrder()">Complete</button>
                 <button onclick="escalateOrder()">Escalate</button>
             </div>
         </div>
-    </section>
+    </div>
 
     <script src="scripts.js"></script>
 </body>
