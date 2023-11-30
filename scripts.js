@@ -71,12 +71,13 @@ document.addEventListener('DOMContentLoaded', function () {
     
                 // display modal
                 orderDetailsModal.style.display = 'block';
+
+
             })
             .catch(error => {
                 console.error('Error fetching order details by ID:', error);
             });
     }
-    
 
     fetchOrderDetails();
 });
