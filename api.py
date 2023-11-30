@@ -10,8 +10,6 @@ Mystery = Flask(__name__)
 @Mystery.route('/Customers', methods=['GET'])
 def get_Customers():
     try:
-        #instance_connection_name = 'inbound-byway-405423:us-central1:comp2140-group1'
-
         # connect to database
         con = mysql.connector.connect(user='root',
                                        host='localhost',
