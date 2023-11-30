@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        section {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 style="text-align:center">Welcome to the Admin Dashboard</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#booking-list">View Bookings</a></li>
+            <li><a href="#event-spaces">Manage Event Spaces</a></li>
+            <li><a href="#booking-request">Handle Booking Requests</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Booking List Section -->
+        <section id="booking-list">
+            <h2>Bookings</h2>
+        
+        </section>
+
+        <!-- Event Spaces Management Section -->
+        <section id="event-spaces">
+            <h2>Event Spaces</h2>
+
+
+          
+            <!-- Update Availability Form -->
+            <div id="update-availability">
+                <h2>Update Availability</h2>
+                <!-- <form action="process-update-availability.php" method="post" onsubmit="return false;"> -->
+                <form onsubmit="event.preventDefault();">
+                    <label for="event-name">Event Name:</label>
+                    <input type="text" id="event-name" name="event-name" required>
+
+                    <label for="availability">Availability:</label>
+                    <select id="availability" name="availability" required>
+                        <option value="available">Available</option>
+                        <option value="booked">Booked</option>
+                    </select>
+
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+        </section>
+      
+
+            <!-- Display Booking Requests -->
+            <section id="display-requests">
+                <h2>Current Booking Requests</h2>
+                <!-- Display list of booking requests  -->
+            
+
+            <!--Approve/Reject Form-->
+            <div id="approve-reject-form">
+                <h2>Approve or Reject Requests</h2>
+                <!-- <form action="process-booking-decision.php" method="post" onsubmit="return false;"> -->
+                <form onsubmit="event.preventDefault();">
+                    <label for="request-id">Request ID:</label>
+                    <input type="text" id="request-id" name="request-id" required>
+
+                    <label for="decision">Decision:</label>
+                    <select id="decision" name="decision" required>
+                        <option value="approve">Approve</option>
+                        <option value="reject">Reject</option>
+                    </select>
+
+                    <button type="submit">Submit Decision</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>
