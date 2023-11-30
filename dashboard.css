@@ -54,7 +54,7 @@ h2 {
     padding: 20px;
     margin: 20px 0 30px;
     text-align: center;
-    flex: 0 1 calc(90% - 20px); /* One card in a row, full width */
+    flex: 0 1 calc(90% - 20px); 
 }
 
 .dashboard-button {
