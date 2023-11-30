@@ -327,31 +327,6 @@ def completeO(oID):
         return make_response({'error': str(e)}, 400)
 
 
-    
-@Mystery.route('/api/all', methods=['GET'])
-def get_all_orders():
-    try:
-        # Connect to the database
-        con = mysql.connector.connect(user='root',
-                                       host='localhost',
-                                       database='mysteryRest')
-        cursor = con.cursor()
-
-        # Execute a query to fetch all orders
-        cursor.execute("SELECT orderID, statusO, orderDetails, orderTotal FROM Orders")
-
-        # Fetch all rows as a list of dictionaries
-        orders = [{'orderID': order[0], 'statusO': order[1], 'orderDetails': order[2], 'orderTotal': float(order[3])} for order in cursor.fetchall()]
-
-        cursor.close()
-        con.close()
-
-        return make_response(jsonify(orders), 200)
-
-    except Exception as e:
-        print(e)
-        return make_response(jsonify({'error': 'An error occurred while retrieving orders'}), 500)
-
 
 if __name__ == '__main__':
     Mystery.run(port=5000)
