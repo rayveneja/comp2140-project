@@ -53,12 +53,13 @@
                 <tr class="order" onclick="fetchOrderDetailsById(order.OrderNumber)">
                 </tr>
             </table>
+            <div id="popupMessage"></div> 
             
             <div id="actionButtons">
                 <button onclick="acceptOrder()">Accept</button>
                 <button onclick="cancelOrder()">Cancel</button>
-                <button onclick="completeOrder()">Complete</button>
                 <button onclick="escalateOrder()">Escalate</button>
+                <button onclick="completeOrder()">Complete</button>
             </div>
         </div>
     </div>
