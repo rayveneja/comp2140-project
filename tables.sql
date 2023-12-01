@@ -2,13 +2,13 @@
 CREATE TABLE Bookings(
   BookingID INT PRIMARY KEY,
   EventSpaceID INT,
+  CustomerID INT,
   EventName VARCHAR(255),
   EventDateTime DATETIME,
   EventDuration INT,
-  CustomerName VARCHAR(255),
-  CustomerPhone VARCHAR(20),
-  CustomerEmail VARCHAR(255),
-  BookingStatus VARCHAR(20)
+  BookingStatus VARCHAR(20),
+  FOREIGN KEY(EventSpaceID) REFERENCES EventSpaces(EventSpaceID),
+  FOREIGN KEY(CustomerID) REFERENCES EventCustomer(customerID)
   );
 
 
