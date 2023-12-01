@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="inventory.css">
-    <title>Inventory Management System</title>
+    <title>Edit Inventory - Mystery Restaurant Bar & Lounge</title>
 </head>
 
 <body>
@@ -22,36 +22,54 @@
     <div id="inventoryApp" class="container">
         <a href="dashboard.html" class="back-button">&#9664; Back to Dashboard</a>
 
-        <h2>Manage Inventory</h2>
+        <h2>Mystery's Inventory</h2>
 
-        <!-- Inventory Tracking Section -->
+        <!-- Search or Add Section -->
         <div class="section">
-            <h3>Inventory Tracking</h3>
-            <button onclick="trackInventory()">Track Inventory</button>
-            <p id="trackingResult"></p>
-            <div id="auditTrail" style="display: none;">
-                <h4>Audit Trail</h4>
-                <ul id="auditList"></ul>
-            </div>
-            <button onclick="editInventory()">Edit Inventory</button>
-            <p id="editingResult"></p>
+            <h3>Search or Add to Inventory</h3>
             <input type="text" id="searchItem" placeholder="Search item">
             <button onclick="searchItem()">Search Item</button>
-            <div id="editOptions" style="display: none;">
-                <h4>Edit Options</h4>
-                <button onclick="saveChanges()">Save Changes</button>
-                <button onclick="cancelChanges()">Cancel Changes</button>
-            </div>
+            <button onclick="toggleAddForm()">Add New Item</button>
         </div>
 
-        <!-- Add a div to display inventory list -->
-        <div id="inventoryList" style="display: none;">
-            <h3>Inventory List</h3>
-            <ul id="listItems"></ul>
+        <!-- Inventory or Add Form Section -->
+        <div id="inventoryItems" class="section">
+            <h3>Inventory Items</h3>
+            <ul id="itemsList"></ul>
         </div>
 
-        <!-- Add a div for editing form -->
-        <div id="editForm" style="display: none;"></div>
+        <!-- Add Form Section -->
+        <div id="addForm" class="section" style="display: none;">
+            <h4>Add New Item</h4>
+            <label for="newItemName">Item Name:</label>
+            <input type="text" id="newItemName" required><br>
+            <label for="newDescription">Description:</label>
+            <input type="text" id="newDescription" required><br>
+            <label for="newDateAdded">Date Added:</label>
+            <input type="date" id="newDateAdded" required><br>
+            <label for="newExpirationDate">Expiration Date:</label>
+            <input type="date" id="newExpirationDate" required><br>
+            <button onclick="addItem()">Add Item</button>
+            <button onclick="cancelAdd()">Cancel</button>
+        </div>
+
+        <!-- Edit Form Section -->
+        <div id="editForm" class="section" style="display: none;">
+            <!-- Form for editing inventory item will be dynamically populated here -->
+        </div>
+
+        <!-- Edit Options Section -->
+        <div id="editOptions" class="section" style="display: none;">
+            <h4>Edit Options</h4>
+            <button onclick="saveChanges()">Save Changes</button>
+            <button onclick="cancelChanges()">Cancel Changes</button>
+        </div>
+
+        <!-- Audit Trail Section -->
+        <div id="auditTrail" class="section" style="display: none;">
+            <h3>Audit Trail</h3>
+            <ul id="auditList"></ul>
+        </div>
     </div>
 
     <script src="inventory.js"></script>
