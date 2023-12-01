@@ -10,7 +10,7 @@ CREATE TABLE Orders (
   orderTime TIMESTAMP,
   pickupTime TIMESTAMP,
   statusO VARCHAR(50),
-  cancelTime TIMESTAMP,
+  cancelledTime TIMESTAMP,
   acceptedTime TIMESTAMP,
   escalatedTime TIMESTAMP,
   staffID INT,
