@@ -179,3 +179,13 @@ h2{
   font-weight: bold;
   font-style: italic;
 }
+
+
+#back{
+  border-radius: 5px;
+  background-color: #8F5399;
+  color: white;
+  padding: 10px;
+  align-items: center;
+
+}
