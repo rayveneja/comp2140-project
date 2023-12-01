@@ -1,60 +1,33 @@
 <!DOCTYPE html>
-
-<html lang ="en">
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title>Login Page</title>
+</head>
 
-      <meta charset="UTF-8">
+<body>
+    <header>
+        <h1>Mystery Restaurant Bar & Lounge</h1>
+    </header>
+    
+    <div class="login-container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
 
-      <meta name= "viewport" content="width=device-width, initial-scale=1.0">
-  <title> Administrative Event Dashboard </title>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
 
-  </head>
-    <body>
-      <header> 
-        <h1 style="text-align:center";>Administrative Event Dashboard</h1>
-        </header>
-
-      <section id= "Login">
-        <h2> Admin Login</h2>
-        <form id="loginForm" onSubmit="submitLoginForm(event)">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Login</button>
+            <button type="button" onclick="attemptLogin()">Login</button>
         </form>
-       </section>
+        <p id="loginMessage"></p>
+    </div>
 
-
-
-       <script>
-        function submitLoginForm(event) {
-            event.preventDefault();
-
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
-
-            // Perform authentication 
-            if (authenticateUser(username, password)) {
-                // Redirect to the dashboard page after successful login
-                window.location.href = 'dashboard.html';
-            } else {
-                alert('Invalid username or password');
-            }
-        }
-
-        function authenticateUser(username, password) {
-            return username === 'admin' && password === 'password';
-        }
-    </script>
+    <script src="login.js"></script>
 </body>
 
 </html>
-
-
-
-
