@@ -19,7 +19,7 @@
     <header>
         <h1 style="text-align:center">Welcome to the Admin Dashboard</h1>
     </header>
-
+    <button onclick="goBack()">Back to Login</button>
     <nav>
         <ul>
             <li><a href="#booking-list">View Bookings</a></li>
@@ -86,6 +86,12 @@
             </div>
         </section>
     </main>
+    
+    <script>
+      function goBack() {
+          window.location.href = 'login.html';
+      }
+  </script>
 
 </body>
 
