@@ -79,9 +79,10 @@ nav {
 .close {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 20px;
   cursor: pointer;
   color: #241526; 
+  font-size: 30px;
 }
 
 #user-container {
@@ -163,4 +164,18 @@ nav {
 h2{
   margin-bottom: 15px;
   text-align: center;
+}
+
+#popupMessage{
+  padding: 10PX;
+  color: #108a0a;
+  border-radius: 5PX;
+  border: 1;
+  height: 10px;
+  margin: 5px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-weight: bold;
+  font-style: italic;
 }
