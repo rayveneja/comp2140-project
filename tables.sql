@@ -25,8 +25,6 @@ CREATE TABLE EventCustomer(
   CustomerName VARCHAR(255),
   CustomerPhone VARCHAR(20),
   CustomerEmail VARCHAR(255),
-  Status VARCHAR(20)
-
 );
 
 
