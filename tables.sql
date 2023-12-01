@@ -16,7 +16,7 @@ CREATE TABLE EventSpaces(
   EventSpaceID INT PRIMARY KEY,
   EventName VARCHAR(255),
   EventDateTime DATETIME,
-  EventDuration INT,
+  EventDuration INT
 );
 
 
@@ -24,7 +24,7 @@ CREATE TABLE EventCustomer(
   CustomerID INT PRIMARY KEY,
   CustomerName VARCHAR(255),
   CustomerPhone VARCHAR(20),
-  CustomerEmail VARCHAR(255),
+  CustomerEmail VARCHAR(255)
 );
 
 
