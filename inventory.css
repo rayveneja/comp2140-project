@@ -8,9 +8,50 @@ body {
 header {
     color: white;
     background-image: linear-gradient(to right, #8F5399, #4D59A1);
-    text-align: center;
-    padding: 1em;
+    display: flex;
+    padding: 20px 50px;
+    justify-content: space-between;
+
 }
+
+header h1{
+    text-align: center;
+    padding-left: 115px;
+}
+
+  
+#header-content {
+    display: flex;
+}
+
+#user-container {
+    display: flex;
+    align-items: center;
+}
+
+#user-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#username {
+    margin: 0;
+    color: white;
+  }
+
+back-button {
+    margin-bottom: 20px; /* Adjust as needed */
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+
 
 .container {
     max-width: 800px;
