@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylebooking.css">
+    <title>Mystery Restaurant Bar & Lounge  Event Booking System</title>
+</head>
+<body>
+    <h1>Mystery Restaurant Bar & LoungeEvent Booking System</h1>
+
+    <div id="booking-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Your Name">
+
+        <label for="date">Date:</label>
+        <input type="date" id="date">
+
+        <label for="time">Time:</label>
+        <input type="time" id="time">
+
+        <button onclick="submitBooking()">Book Event</button>
+    </div>
+
+    <div id="booking-table">
+        <h2>Bookings</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="booking-list">
+                <!-- Bookings will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
