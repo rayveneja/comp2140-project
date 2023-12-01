@@ -414,8 +414,7 @@ def get_available_bookings():
                                        database='mysteryRest'
                                        )
         cursor = con.cursor()
-        cursor.execute(f"SELECT EventSpaces.EventName, EventCustomer.CustomerName, Bookings.EventDateTime, Bookings.EventDuration FROM Bookings JOIN EventSpaces ON Bookings.EventSpaceID = 
-        EventSpaces.EventSpaceID JOIN EventCustomer ON Bookings.CustomerID = EventCustomer.CustomerID WHERE Bookings.BookingStatus = 'available';")
+        cursor.execute(f"SELECT EventSpaces.EventName, EventCustomer.CustomerName, Bookings.EventDateTime, Bookings.EventDuration FROM Bookings JOIN EventSpaces ON Bookings.EventSpaceID = EventSpaces.EventSpaceID JOIN EventCustomer ON Bookings.CustomerID = EventCustomer.CustomerID WHERE Bookings.BookingStatus = 'available';")
         available_booking_list = []
         for row in cursor.fetchall():
             booking = {
