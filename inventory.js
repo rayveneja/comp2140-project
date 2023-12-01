@@ -1,4 +1,3 @@
-// Simulated inventory data retrieved from a SQL database
 const inventoryData = [
     { ItemName: 'Item A', ItemID: 1, IDescription: 'Description A', DateAdded: '2023-01-01', ExpirationDate: '2023-12-31' },
     { ItemName: 'Item B', ItemID: 2, IDescription: 'Description B', DateAdded: '2023-02-01', ExpirationDate: '2023-12-31' },
@@ -6,7 +5,7 @@ const inventoryData = [
 
 function displayInventory() {
     // Display the inventory data
-    const inventoryList = document.getElementById('inventoryList');
+    const inventoryList = document.getElementById('listItems');
     inventoryList.innerHTML = ''; // Clear previous data
     inventoryData.forEach(item => {
         const listItem = document.createElement('li');
@@ -23,6 +22,22 @@ function displayInventory() {
     document.getElementById('inventoryList').style.display = 'block';
     document.getElementById('editOptions').style.display = 'none'; // Hide edit options when displaying inventory
 }
+
+function toggleInventory() {
+    // Toggle the display of inventory list
+    const inventoryList = document.getElementById('inventoryList');
+    if (inventoryList.style.display === 'none') {
+        inventoryList.style.display = 'block';
+        document.getElementById('searchItem').style.display = 'inline-block';
+        document.getElementById('searchButton').style.display = 'inline-block';
+        document.getElementById('editOptions').style.display = 'none'; // Hide edit options initially
+    } else {
+        inventoryList.style.display = 'none';
+        document.getElementById('searchItem').style.display = 'none';
+        document.getElementById('searchButton').style.display = 'none';
+    }
+}
+
 
 function editItem(itemId) {
     // Find the item in the inventoryData array based on itemId

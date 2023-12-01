@@ -2,6 +2,7 @@ import datetime
 from flask import Flask, jsonify, request, make_response, render_template
 import mysql.connector
 from flask_cors import CORS
+import sqlite3
 
 Mystery = Flask(__name__)
 CORS(Mystery)
@@ -12,10 +13,7 @@ CORS(Mystery)
 def inventory():
     try:
         # Connect to database
-        con = mysql.connector.connect(user='root',
-                                       host='localhost',
-                                       database='mysteryRest'
-                                       )
+        con = con = sqlite3.connect('test_database.db')
         cursor = con.cursor()
         cursor.execute(f"SELECT Item.ItemName, Item.ItemID, Item.IDescription, Item.DateAdded, Item.ExpirationDate FROM Items.InventoryItemsID = Items.InventoryItemsID")
         item_list = []
@@ -73,6 +71,7 @@ def inventory_actions():
     except Exception as e:
         print(e)
         return make_response(jsonify({'error': 'An error occurred while processing the request'}), 500)
+        
 
 if __name__ == '__main__':
     Mystery.run(port=5000)
