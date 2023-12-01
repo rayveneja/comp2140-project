@@ -3,47 +3,93 @@ const inventoryData = [
     { ItemName: 'Item B', ItemID: 2, IDescription: 'Description B', DateAdded: '2023-02-01', ExpirationDate: '2023-12-31' },
 ];
 
+let currentInventory = [...inventoryData];
+
+function searchItem() {
+    const searchValue = document.getElementById('searchItem').value.toLowerCase();
+    currentInventory = inventoryData.filter(item =>
+        item.ItemName.toLowerCase().includes(searchValue)
+    );
+
+    displayInventory();
+}
+
+function toggleAddForm() {
+    const inventoryItems = document.getElementById('inventoryItems');
+    const addForm = document.getElementById('addForm');
+
+    if (inventoryItems.style.display === 'block') {
+        inventoryItems.style.display = 'none';
+        addForm.style.display = 'block';
+    } else {
+        inventoryItems.style.display = 'block';
+        addForm.style.display = 'none';
+    }
+}
+
+function addItem() {
+    const newItemName = document.getElementById('newItemName').value;
+    const newDescription = document.getElementById('newDescription').value;
+    const newDateAdded = document.getElementById('newDateAdded').value;
+    const newExpirationDate = document.getElementById('newExpirationDate').value;
+
+    const newItem = {
+        ItemName: newItemName,
+        ItemID: currentInventory.length + 1,
+        IDescription: newDescription,
+        DateAdded: newDateAdded,
+        ExpirationDate: newExpirationDate,
+    };
+
+    currentInventory.push(newItem);
+    displayInventory();
+}
+
+function cancelAdd() {
+    document.getElementById('newItemName').value = '';
+    document.getElementById('newDescription').value = '';
+    document.getElementById('newDateAdded').value = '';
+    document.getElementById('newExpirationDate').value = '';
+
+    toggleAddForm();
+    displayInventory();
+}
+
+function deleteItem(itemId) {
+    const confirmation = confirm('Are you sure you want to delete this item?');
+    if (confirmation) {
+        const indexToDelete = currentInventory.findIndex(item => item.ItemID === itemId);
+
+        if (indexToDelete !== -1) {
+            currentInventory.splice(indexToDelete, 1);
+            document.getElementById('editingResult').innerText = 'Item deleted successfully.';
+            displayInventory();
+        }
+    }
+}
+
 function displayInventory() {
-    // Display the inventory data
-    const inventoryList = document.getElementById('listItems');
-    inventoryList.innerHTML = ''; // Clear previous data
-    inventoryData.forEach(item => {
+    const inventoryList = document.getElementById('itemsList');
+    inventoryList.innerHTML = '';
+
+    currentInventory.forEach(item => {
         const listItem = document.createElement('li');
         listItem.innerHTML = `<strong>${item.ItemName}</strong> (ID: ${item.ItemID})<br>
                               Description: ${item.IDescription}<br>
                               Date Added: ${item.DateAdded}<br>
                               Expiration Date: ${item.ExpirationDate}
-                              <button onclick="editItem(${item.ItemID})">Edit</button>`;
+                              <button onclick="editItem(${item.ItemID})">Edit</button>
+                              <button onclick="deleteItem(${item.ItemID})">Delete</button>`;
         inventoryList.appendChild(listItem);
     });
 
-    // Show the inventory list section
-    document.getElementById('trackingResult').innerText = 'Inventory tracking functionality will be implemented.';
-    document.getElementById('inventoryList').style.display = 'block';
-    document.getElementById('editOptions').style.display = 'none'; // Hide edit options when displaying inventory
+    document.getElementById('inventoryItems').style.display = 'block';
+    document.getElementById('addForm').style.display = 'none';
 }
-
-function toggleInventory() {
-    // Toggle the display of inventory list
-    const inventoryList = document.getElementById('inventoryList');
-    if (inventoryList.style.display === 'none') {
-        inventoryList.style.display = 'block';
-        document.getElementById('searchItem').style.display = 'inline-block';
-        document.getElementById('searchButton').style.display = 'inline-block';
-        document.getElementById('editOptions').style.display = 'none'; // Hide edit options initially
-    } else {
-        inventoryList.style.display = 'none';
-        document.getElementById('searchItem').style.display = 'none';
-        document.getElementById('searchButton').style.display = 'none';
-    }
-}
-
 
 function editItem(itemId) {
-    // Find the item in the inventoryData array based on itemId
-    const itemToEdit = inventoryData.find(item => item.ItemID === itemId);
+    const itemToEdit = currentInventory.find(item => item.ItemID === itemId);
 
-    // Display the edit form with current item details
     const editForm = document.getElementById('editForm');
     editForm.innerHTML = `<h4>Edit Item</h4>
                           <label for="editedItemName">Item Name:</label>
@@ -57,36 +103,32 @@ function editItem(itemId) {
                           <button onclick="saveChanges(${itemId})">Save Changes</button>
                           <button onclick="cancelChanges()">Cancel Changes</button>`;
 
-    // Hide the inventory list and display the edit form
-    document.getElementById('inventoryList').style.display = 'none';
-    editForm.style.display = 'block';
+    document.getElementById('inventoryItems').style.display = 'none';
+    document.getElementById('editForm').style.display = 'block';
 }
 
 function saveChanges(itemId) {
-    // Retrieve the edited values from the form
     const editedItemName = document.getElementById('editedItemName').value;
     const editedDescription = document.getElementById('editedDescription').value;
     const editedDateAdded = document.getElementById('editedDateAdded').value;
     const editedExpirationDate = document.getElementById('editedExpirationDate').value;
 
-    // Find the item in the inventoryData array based on itemId
-    const itemToEdit = inventoryData.find(item => item.ItemID === itemId);
+    const itemToEdit = currentInventory.find(item => item.ItemID === itemId);
 
-    // Update the item details
     itemToEdit.ItemName = editedItemName;
     itemToEdit.IDescription = editedDescription;
     itemToEdit.DateAdded = editedDateAdded;
     itemToEdit.ExpirationDate = editedExpirationDate;
 
-    // Display a message indicating that changes are saved
-    document.getElementById('editingResult').innerText = 'Changes saved successfully.';
+    const confirmation = confirm('Changes Saved Successfully!');
 
-    // Re-display the inventory list
     displayInventory();
+
+    document.getElementById('editForm').style.display = 'none';
+    document.getElementById('inventoryItems').style.display = 'block';
 }
 
 function cancelChanges() {
-    // Hide the edit form and re-display the inventory list
     document.getElementById('editForm').style.display = 'none';
     displayInventory();
 }
