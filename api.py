@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from flask import Flask, jsonify, request, make_response
 import mysql.connector
 from flask_cors import CORS
@@ -43,7 +43,7 @@ def get_orderView():
         # connect to database
         con = mysql.connector.connect(user='root', host='localhost', database='mysteryRest')
         cursor = con.cursor()
-        cursor.execute(f"SELECT * FROM OrderView")
+        cursor.execute(f"SELECT o.orderID AS OrderNumber, CONCAT(c.customerFirstName, ' ', c.customerLastName) AS CustomerFullName, o.orderDetails AS OrderDetails, o.orderTotal AS OrderTotal,o.pickupTime AS OrderPickupTime, o.statusO AS OrderStatus FROM Orders o JOIN Customers c ON o.customerID = c.customerID;")
         orderView_list = []
         for OrderNumber, CustomerFullName, OrderDetails, OrderTotal, OrderPickupTime, OrderStatus in cursor:
             order = {
@@ -73,12 +73,12 @@ def get_orderViewbyID(orderID):
         orderView_list = []
         for OrderNumber, CustomerFullName, OrderDetails, OrderTotal, OrderPickupTime, OrderStatus in cursor:
             order = {
-                'OrderNumber': OrderNumber,
-                'CustomerFullName': CustomerFullName,
-                'OrderDetails': OrderDetails,
-                'OrderTotal': OrderTotal,
-                'OrderPickupTime': OrderPickupTime,
-                'OrderStatus': OrderStatus
+                'Order Number': OrderNumber,
+                'Customer Name': CustomerFullName,
+                'Details': OrderDetails,
+                'Total': OrderTotal,
+                'PickupTime': OrderPickupTime,
+                'Status': OrderStatus
             }
             orderView_list.append(order)
         cursor.close()
@@ -213,12 +213,12 @@ def get_escalatedorderView():
     
     
 @Mystery.route('/updateOStat/orderID', methods=['POST'])
-def updateOStat(oID):
+def updateOStat(orderID):
     try:
-        con = mysql.connector.connect(user='', password ='',
-                                    host = '',
-                                    database = '')
-        #this creates a cursor
+        con = mysql.connector.connect(user='root',
+                                       host='localhost',
+                                       database='mysteryRest'
+                                       )
         cur = con.cursor()
         content = request.json
         statusO = content['statusO']
@@ -239,9 +239,9 @@ def updateOStat(oID):
         if time_column:
             current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             update_statusO = update_statusO.format(time_column=time_column)
-            cur.execute(update_statusO, (statusO, current_time, oID))
+            cur.execute(update_statusO, (statusO, current_time, orderID))
         else:
-            cur.execute(update_statusO.format(time_column=''), (statusO, None, oID))
+            cur.execute(update_statusO.format(time_column=''), (statusO, None, orderID))
 
         con.commit()
         cur.close()
@@ -255,18 +255,24 @@ def updateOStat(oID):
 
 
 @Mystery.route('/cancellO/<int:orderID>', methods=['POST'])
-def cancellO(oID):
+def cancellO(orderID):
     try:
-        con = mysql.connector.connect(user='', password ='',
-                                    host = '',
-                                    database = '')
+        con = mysql.connector.connect(user='root',
+                                       host='localhost',
+                                       database='mysteryRest'
+                                       )
       
         cur = con.cursor()
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        update_statusO = """
+            UPDATE Orders 
+            SET statusO = 'Cancelled', 
+                cancelledTime = %s 
+            WHERE orderID = %s
+        """
 
-        update_statusO = "UPDATE Order SET statusO = 'Cancelled', cancelTime = %s WHERE orderID = %s"
+        cur.execute(update_statusO, (current_time, orderID))
 
-        cur.execute(update_statusO, (current_time, oID))
 
         con.commit()
         cur.close()
@@ -277,20 +283,26 @@ def cancellO(oID):
         print(e)
         return make_response({'error': str(e)}, 400)
     
+    
 
 @Mystery.route('/acceptO/<int:orderID>', methods=['POST'])
-def acceptO(oID):
+def acceptO(orderID):
     try:
-        con = mysql.connector.connect(user='', password ='',
-                                    host = '',
-                                    database = '')
-      
+        con = mysql.connector.connect(user='root',
+                                       host='localhost',
+                                       database='mysteryRest'
+                                       )
         cur = con.cursor()
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        update_statusO = """
+            UPDATE Orders 
+            SET statusO = 'Accepted', 
+                acceptedTime = %s 
+            WHERE orderID = %s
+        """
 
-        update_statusO = "UPDATE Order SET statusO = 'Accepted', acceptedTime = %s WHERE orderID = %s"
+        cur.execute(update_statusO, (current_time, orderID))
 
-        cur.execute(update_statusO, (current_time, oID))
 
         con.commit()
         cur.close()
@@ -303,18 +315,23 @@ def acceptO(oID):
     
 
 @Mystery.route('/escalateO/<int:orderID>', methods=['POST'])
-def escalateO(oID):
+def escalateO(orderID):
     try:
-        con = mysql.connector.connect(user='', password ='',
-                                    host = '',
-                                    database = '')
-      
+        con = mysql.connector.connect(user='root',
+                                       host='localhost',
+                                       database='mysteryRest'
+                                       )
         cur = con.cursor()
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        update_statusO = """
+            UPDATE Orders 
+            SET statusO = 'Escalated', 
+                escalatedTime = %s 
+            WHERE orderID = %s
+        """
 
-        update_statusO = "UPDATE Order SET statusO = 'Escalated', escalatedTime = %s WHERE orderID = %s"
+        cur.execute(update_statusO, (current_time, orderID))
 
-        cur.execute(update_statusO, (current_time, oID))
 
         con.commit()
         cur.close()
@@ -328,18 +345,24 @@ def escalateO(oID):
 
 
 @Mystery.route('/completeO/<int:orderID>', methods=['POST'])
-def completeO(oID):
+def completeO(orderID):
     try:
-        con = mysql.connector.connect(user='', password ='',
-                                    host = '',
-                                    database = '')
+        con = mysql.connector.connect(user='root',
+                                       host='localhost',
+                                       database='mysteryRest'
+                                       )
       
         cur = con.cursor()
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        update_statusO = """
+            UPDATE Orders 
+            SET statusO = 'Completed', 
+                completedTime = %s 
+            WHERE orderID = %s
+        """
 
-        update_statusO = "UPDATE Order SET statusO = 'Completed', completedTime = %s WHERE orderID = %s"
+        cur.execute(update_statusO, (current_time, orderID))
 
-        cur.execute(update_statusO, (current_time, oID))
 
         con.commit()
         cur.close()
@@ -349,7 +372,7 @@ def completeO(oID):
     except Exception as e:
         print(e)
         return make_response({'error': str(e)}, 400)
-
+    
 
 
 if __name__ == '__main__':
