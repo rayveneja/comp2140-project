@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="inventory.css">
+    <title>Inventory Management System</title>
+</head>
+
+<body>
+    <header>
+        <h1>Inventory Management System</h1>
+    </header>
+
+    <div id="inventoryApp" class="container">
+        <h2>Manage Inventory</h2>
+
+        <!-- Inventory Tracking Section -->
+        <div class="section">
+            <h3>Inventory Tracking</h3>
+            <p>Alerts for low stock.</p>
+            <button onclick="trackInventory()">Track Inventory</button>
+            <p id="trackingResult"></p>
+            <div id="auditTrail" style="display: none;">
+                <h4>Audit Trail</h4>
+                <ul id="auditList"></ul>
+            </div>
+        </div>
+
+        <!-- Inventory Editing Section -->
+        <div class="section">
+            <h3>Inventory Editing</h3>
+            <p>Edit and add items to the inventory.</p>
+            <button onclick="editInventory()">Edit Inventory</button>
+            <p id="editingResult"></p>
+            <input type="text" id="searchItem" placeholder="Search item">
+            <button onclick="searchItem()">Search Item</button>
+            <div id="editOptions" style="display: none;">
+                <h4>Edit Options</h4>
+                <button onclick="saveChanges()">Save Changes</button>
+                <button onclick="cancelChanges()">Cancel Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="inventory.js"></script>
+</body>
+</html>

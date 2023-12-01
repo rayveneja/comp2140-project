@@ -1,0 +1,1 @@
+document.getElementById('dashboardMessage').textContent = 'Welcome to the Dashboard!';
