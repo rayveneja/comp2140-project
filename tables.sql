@@ -26,9 +26,3 @@ CREATE TABLE EventCustomer(
   CustomerPhone VARCHAR(20),
   CustomerEmail VARCHAR(255)
 );
-
-
-
-
-
-
