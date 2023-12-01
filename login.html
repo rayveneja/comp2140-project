@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang ="en">
+
+<head>
+
+      <meta charset="UTF-8">
+
+      <meta name= "viewport" content="width=device-width, initial-scale=1.0">
+  <title> Administrative Event Dashboard </title>
+
+  </head>
+    <body>
+      <header> 
+        <h1 style="text-align:center";>Administrative Event Dashboard</h1>
+        </header>
+
+      <section id= "Login">
+        <h2> Admin Login</h2>
+        <form id="loginForm" onSubmit="submitLoginForm(event)">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Login</button>
+        </form>
+       </section>
+
+
+
+       <script>
+        function submitLoginForm(event) {
+            event.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Perform authentication 
+            if (authenticateUser(username, password)) {
+                // Redirect to the dashboard page after successful login
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Invalid username or password');
+            }
+        }
+
+        function authenticateUser(username, password) {
+            return username === 'admin' && password === 'password';
+        }
+    </script>
+</body>
+
+</html>
+
+
+
+
