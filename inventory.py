@@ -1,61 +1,43 @@
-import datetime
 from flask import Flask, jsonify, request, make_response, render_template
-import mysql.connector
-from flask_cors import CORS
-import sqlite3
+import random
+import datetime
 
-Mystery = Flask(__name__)
-CORS(Mystery)
+app = Flask(__name__)
 
+# Simulated inventory data retrieved from a SQL database
+inventory_data = [
+    {'ItemID': 1, 'ItemName': 'Item A', 'IDescription': 'Description A', 'DateAdded': '2023-01-01', 'ExpirationDate': '2023-12-31'},
+    {'ItemID': 2, 'ItemName': 'Item B', 'IDescription': 'Description B', 'DateAdded': '2023-02-01', 'ExpirationDate': '2023-12-31'},
+]
+
+# Simulated audit trail data
+audit_trail_data = [
+    {'ItemID': 1, 'Changes': 'Added new item'},
+    {'ItemID': 2, 'Changes': 'Updated quantity'},
+]
 
 # Route for rendering the inventory page
-@Mystery.route('/inventory', methods=['GET'])
+@app.route('/inventory', methods=['GET'])
 def inventory():
-    try:
-        # Connect to database
-        con = con = sqlite3.connect('test_database.db')
-        cursor = con.cursor()
-        cursor.execute(f"SELECT Item.ItemName, Item.ItemID, Item.IDescription, Item.DateAdded, Item.ExpirationDate FROM Items.InventoryItemsID = Items.InventoryItemsID")
-        item_list = []
-        for row in cursor.fetchall():
-            item = {
-                'ItemName': row[0],
-                'ItemID': row[1],
-                'IDescription': row[2],
-                'DateAdded': row[3],
-                'ExpirationDate': row[4]
-            }
-            item_list.append(item)
-        cursor.close()
-        con.close()
-        return make_response(jsonify(item_list), 200)
+    return render_template('inventory.html')
 
-    except Exception as e:
-        print(e)
-        return make_response(jsonify({'error': 'An error occurred while retrieving this view'}), 500)
-    
-# Route for handling inventory-related actions (e.g., search, track, edit)
-@Mystery.route('/inventory/actions', methods=['POST'])
+# Route for handling inventory-related actions
+@app.route('/inventory/actions', methods=['POST'])
 def inventory_actions():
     try:
         action = request.form.get('action')
 
         if action == 'searchItem':
             search_item_value = request.form.get('searchItemValue')
-            # Perform any necessary actions for searching items (e.g., query the database)
-            return jsonify({'result': f'Searching for item: {search_item_value}'})
-
-        elif action == 'trackInventory':
-            # Simulated data retrieved from a SQL database
-            audit_trail_data = [
-                {'item': 'Item A', 'changes': 'Added new item'},
-                {'item': 'Item B', 'changes': 'Updated quantity'},
-            ]
-            return jsonify({'auditTrailData': audit_trail_data})
+            # Simulated data for search results
+            search_results = random.sample(inventory_data, k=min(len(inventory_data), 3))
+            return jsonify({'searchResults': search_results})
 
         elif action == 'editInventory':
-            # Perform any necessary actions for editing inventory
-            return jsonify({'result': 'Inventory editing functionality will be implemented.'})
+            item_id = int(request.form.get('itemID'))
+            # Find the item in the inventory data based on item ID
+            selected_item = next((item for item in inventory_data if item['ItemID'] == item_id), None)
+            return jsonify({'selectedItem': selected_item})
 
         elif action == 'saveChanges':
             # Perform any necessary actions for saving changes
@@ -65,13 +47,19 @@ def inventory_actions():
             # Perform any necessary actions for canceling changes
             return jsonify({'result': 'Changes canceled.'})
 
+        elif action == 'getAuditTrail':
+            item_id = int(request.form.get('itemID'))
+            # Simulated data for audit trail
+            item_audit_trail = [audit for audit in audit_trail_data if audit['ItemID'] == item_id]
+            return jsonify({'auditTrail': item_audit_trail})
+
         else:
             return jsonify({'error': 'Invalid action'})
 
     except Exception as e:
         print(e)
         return make_response(jsonify({'error': 'An error occurred while processing the request'}), 500)
-        
 
 if __name__ == '__main__':
-    Mystery.run(port=5000)
+    app.run(port=5000)
+
