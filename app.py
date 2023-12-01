@@ -79,7 +79,7 @@ def get_bookings_by_status(status):
                                        )
         cursor = con.cursor()
 
-        # Validate status to prevent SQL injection
+        
         if status.lower() not in ['approve', 'reject']:
             return make_response(jsonify({'error': 'Invalid status provided'}), 400)
 
